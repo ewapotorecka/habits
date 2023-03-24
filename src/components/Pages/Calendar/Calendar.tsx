@@ -44,7 +44,7 @@ const Calendar = () => {
     <Box>
       <Typography variant="h3">{habit.goal}</Typography>
       <Typography variant="body2">{habit.schema}</Typography>
-
+      <p>calendar</p>
       <Grid
         container
         rowGap={1}
