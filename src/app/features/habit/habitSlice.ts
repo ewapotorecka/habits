@@ -1,39 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-// const data = [
-//   { id: 1, done: false, reward: true },
-//   { id: 2, done: true, reward: false },
-//   { id: 3, done: false, reward: false },
-//   { id: 4, done: undefined, reward: false },
-//   { id: 5, done: false, reward: false },
-//   { id: 6, done: false, reward: false },
-//   { id: 7, done: false, reward: false },
-//   { id: 8, done: false, reward: false },
-//   { id: 9, done: false, reward: false },
-//   { id: 10, done: false, reward: false },
-//   { id: 11, done: false, reward: false },
-//   { id: 12, done: false, reward: false },
-//   { id: 13, done: false, reward: false },
-//   { id: 14, done: false, reward: false },
-//   { id: 15, done: false, reward: false },
-//   { id: 16, done: false, reward: false },
-//   { id: 17, done: false, reward: false },
-//   { id: 18, done: false, reward: false },
-//   { id: 19, done: false, reward: false },
-//   { id: 20, done: false, reward: false },
-//   { id: 21, done: false, reward: false },
-//   { id: 22, done: false, reward: false },
-//   { id: 23, done: false, reward: false },
-//   { id: 24, done: false, reward: false },
-//   { id: 25, done: false, reward: false },
-//   { id: 26, done: true, reward: false },
-//   { id: 27, done: false, reward: false },
-//   { id: 28, done: false, reward: false },
-//   { id: 29, done: false, reward: false },
-//   { id: 30, done: false, reward: false },
-// ];
-
 export const habit = {
   id: null,
   goal: "",
@@ -47,6 +14,12 @@ export const habit = {
   data: [],
 };
 
+export interface HabitData {
+  id: number;
+  done?: boolean;
+  reward: boolean;
+}
+
 export interface HabitSlice {
   id: number | null;
   goal: string;
@@ -57,10 +30,15 @@ export interface HabitSlice {
     strength: number;
     history: { strength: number; date: Date }[];
   };
-  data: { id: number; done?: boolean; reward: boolean }[];
+  data: HabitData[];
 }
 
-const initialState: HabitSlice = habit;
+const savedHabit = localStorage.getItem("habit");
+
+const initialState: HabitSlice = savedHabit ? JSON.parse(savedHabit) : habit;
+const updateSavedHabit = (updatedHabit: HabitSlice) => {
+  localStorage.setItem("habit", JSON.stringify(updatedHabit));
+};
 
 export const habitSlice = createSlice({
   name: "habit",
@@ -74,14 +52,24 @@ export const habitSlice = createSlice({
       } else {
         dayToToggle!.done = true;
       }
+      updateSavedHabit(state);
     },
     setNewHabit: (state, action: PayloadAction<HabitSlice>) => {
-      state = action.payload;
+      const { data, id, goal, schema, startDate, rewards, habitStrength } =
+        action.payload;
+      state.data = data;
+      state.id = id;
+      state.goal = goal;
+      state.schema = schema;
+      state.startDate = startDate;
+      state.rewards = rewards;
+      state.habitStrength = habitStrength;
+
+      updateSavedHabit(state);
     },
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { toggleDone, setNewHabit } = habitSlice.actions;
 
 export default habitSlice.reducer;

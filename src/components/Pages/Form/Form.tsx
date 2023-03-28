@@ -5,6 +5,7 @@ import {
   FormControl,
   FormGroup,
   FormHelperText,
+  IconButton,
   Input,
   InputLabel,
   Typography,
@@ -13,14 +14,29 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setNewHabit } from "../../../app/features/habit/habitSlice";
-
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 const createHabitData = () => {
-  return [
-    { id: 1, done: false, reward: false },
-    { id: 2, done: false, reward: false },
-    { id: 3, done: false, reward: false },
+  const habitData = [];
+  const rewardsDays = [
+    Math.ceil(Math.random() * 30),
+    Math.ceil(Math.random() * 30),
+    Math.ceil(Math.random() * 30),
+    Math.ceil(Math.random() * 30),
+    Math.ceil(Math.random() * 30),
+    Math.ceil(Math.random() * 30),
   ];
+
+  for (let i = 1; i <= 30; i++) {
+    if (rewardsDays.includes(i)) {
+      habitData.push({ id: i, done: undefined, reward: true });
+    } else {
+      habitData.push({ id: i, done: undefined, reward: false });
+    }
+  }
+  return habitData;
 };
+
+createHabitData();
 
 const HabitForm = () => {
   const [rewards, setRewards] = useState<string[]>([]);
@@ -31,7 +47,7 @@ const HabitForm = () => {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ padding: "4rem" }}>
+    <Box sx={{ padding: "4rem", maxWidth: "50%" }}>
       <form
         onSubmit={(e) => {
           const newHabit = {
@@ -48,7 +64,7 @@ const HabitForm = () => {
           };
           e.preventDefault();
           dispatch(setNewHabit(newHabit));
-          navigate("/dashboard");
+          navigate("/");
         }}
       >
         <FormGroup sx={{ display: "flex", gap: "2rem" }}>
@@ -97,16 +113,18 @@ const HabitForm = () => {
                   setRewardInput("");
                 }
               }}
+              endAdornment={
+                <IconButton
+                  color="primary"
+                  onClick={() => {
+                    setRewards([...rewards, rewardInput]);
+                    setRewardInput("");
+                  }}
+                >
+                  <AddCircleIcon />
+                </IconButton>
+              }
             />
-
-            <Button
-              onClick={() => {
-                setRewards([...rewards, rewardInput]);
-                setRewardInput("");
-              }}
-            >
-              Add
-            </Button>
           </FormControl>
           <Box
             sx={{
@@ -117,9 +135,10 @@ const HabitForm = () => {
             }}
           >
             <Typography variant="body1">Rewards:</Typography>
-            {rewards.map((el) => (
+            {rewards.map((el, idx) => (
               <Chip
                 label={el}
+                key={`${idx}-${el}`}
                 onDelete={() => {
                   const rewardsCopy = [...rewards];
                   rewardsCopy.splice(
