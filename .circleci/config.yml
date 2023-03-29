@@ -15,6 +15,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Yarn"
+          command: "npm install yarn"
+      - run:
           name: "Lint"
           command: "yarn lint"
 
