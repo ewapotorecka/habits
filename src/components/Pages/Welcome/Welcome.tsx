@@ -13,7 +13,7 @@ const Welcome = () => {
         gap: "3rem",
       }}
     >
-      <Typography variant="h4">Let's build your new habit</Typography>
+      <Typography variant="h4">Let&apos;s build your new habit</Typography>
       <Button
         variant="contained"
         sx={{ a: { textDecoration: "none", color: "white" } }}
