@@ -2,23 +2,23 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 orbs:
-  yarn: itinerisltd/yarn@2.1.1
+  node: circleci/node@5.0.2
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
   lint-and-test:
-    # executor: node/default
+    executor: node/default
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/configuration-reference/#executor-job
-    docker:
-      - image: cimg/node:19.8.1
+    # docker:
+    #   - image: cimg/base:stable
     # Add steps to the job
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
-      # - node/install-packages:
-      #     pkg-manager: yarn
+      - node/install-packages:
+          pkg-manager: yarn
       - run:
           name: "Lint and test"
           command: "yarn lint & yarn test"
