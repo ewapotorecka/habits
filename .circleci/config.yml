@@ -19,6 +19,9 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
+       - run:
+          name: "Install dependencies"
+          command: "yarn install"
       - run:
           name: "Lint and test"
           command: "yarn lint & yarn test"
