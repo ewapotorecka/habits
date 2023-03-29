@@ -36,7 +36,7 @@ export interface HabitSlice {
   data: HabitData[];
 }
 
-const savedHabit = storage.getHabitFromStorage();
+const savedHabit = storage.habit;
 
 const initialState: HabitSlice = savedHabit ? savedHabit : initialHabit;
 
@@ -47,25 +47,17 @@ export const habitSlice = createSlice({
     toggleDone: (state, action: PayloadAction<number>) => {
       const dayToToggle = state.data.find((el) => el.id === action.payload);
 
-      if (dayToToggle!.done) {
-        dayToToggle!.done = false;
-      } else {
-        dayToToggle!.done = true;
+      if (dayToToggle) {
+        dayToToggle.done = !dayToToggle.done;
       }
+
       storage.updateStorage(state);
     },
     setNewHabit: (state, action: PayloadAction<HabitSlice>) => {
-      const { data, id, goal, schema, startDate, rewards, habitStrength } =
-        action.payload;
-      state.data = data;
-      state.id = id;
-      state.goal = goal;
-      state.schema = schema;
-      state.startDate = startDate;
-      state.rewards = rewards;
-      state.habitStrength = habitStrength;
-
-      storage.updateStorage(state);
+      storage.updateStorage({
+        ...action.payload,
+      });
+      return { ...action.payload };
     },
   },
 });
