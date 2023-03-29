@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { Storage } from "../../../utilities/storage";
 
-export const habit = {
+const storage = new Storage();
+
+export const initialHabit = {
   id: null,
   goal: "",
   schema: "",
@@ -33,12 +36,9 @@ export interface HabitSlice {
   data: HabitData[];
 }
 
-const savedHabit = localStorage.getItem("habit");
+const savedHabit = storage.getHabitFromStorage();
 
-const initialState: HabitSlice = savedHabit ? JSON.parse(savedHabit) : habit;
-const updateSavedHabit = (updatedHabit: HabitSlice) => {
-  localStorage.setItem("habit", JSON.stringify(updatedHabit));
-};
+const initialState: HabitSlice = savedHabit ? savedHabit : initialHabit;
 
 export const habitSlice = createSlice({
   name: "habit",
@@ -52,7 +52,7 @@ export const habitSlice = createSlice({
       } else {
         dayToToggle!.done = true;
       }
-      updateSavedHabit(state);
+      storage.updateStorage(state);
     },
     setNewHabit: (state, action: PayloadAction<HabitSlice>) => {
       const { data, id, goal, schema, startDate, rewards, habitStrength } =
@@ -65,7 +65,7 @@ export const habitSlice = createSlice({
       state.rewards = rewards;
       state.habitStrength = habitStrength;
 
-      updateSavedHabit(state);
+      storage.updateStorage(state);
     },
   },
 });
