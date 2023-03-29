@@ -19,7 +19,7 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-       - run:
+      - run:
           name: "Install dependencies"
           command: "yarn install"
       - run:
