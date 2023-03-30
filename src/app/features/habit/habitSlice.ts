@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Storage } from "../../../utilities/storage";
+import { HabitSlice } from "./habitTypes";
 
 const storage = new Storage();
 
-export const initialHabit = {
+const initialHabit = {
   id: null,
   goal: "",
   schema: "",
@@ -15,25 +16,6 @@ export const initialHabit = {
   },
   data: [],
 };
-
-export interface HabitData {
-  id: number;
-  done?: boolean;
-  reward: boolean;
-  date: string;
-}
-
-export interface HabitSlice {
-  id: number | null;
-  goal: string;
-  schema: string;
-  rewards: string[];
-  habitStrength: {
-    strength: number;
-    history: { strength: number; date: Date }[];
-  };
-  data: HabitData[];
-}
 
 const savedHabit = storage.habit;
 

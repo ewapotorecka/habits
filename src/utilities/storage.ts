@@ -1,4 +1,4 @@
-import { HabitSlice } from "../app/features/habit/habitSlice";
+import { HabitSlice } from "../app/features/habit/habitTypes";
 
 export class Storage {
   habit: HabitSlice | null;

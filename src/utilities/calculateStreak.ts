@@ -1,5 +1,5 @@
 import lightFormat from "date-fns/lightFormat";
-import { HabitData } from "../app/features/habit/habitSlice";
+import { HabitData } from "../app/features/habit/habitTypes";
 
 export function calculateStreakFromHabitData(data: HabitData[]) {
   const today = new Date(Date.now());
