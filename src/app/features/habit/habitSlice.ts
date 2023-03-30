@@ -8,7 +8,6 @@ export const initialHabit = {
   id: null,
   goal: "",
   schema: "",
-  startDate: null,
   rewards: [],
   habitStrength: {
     strength: 0,
@@ -21,13 +20,13 @@ export interface HabitData {
   id: number;
   done?: boolean;
   reward: boolean;
+  date: string;
 }
 
 export interface HabitSlice {
   id: number | null;
   goal: string;
   schema: string;
-  startDate: number | null;
   rewards: string[];
   habitStrength: {
     strength: number;

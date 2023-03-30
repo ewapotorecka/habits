@@ -3,7 +3,8 @@ import { Box } from "@mui/system";
 import theme from "../../../../../styles/theme";
 
 const Streak = ({ streak }: { streak: number }) => {
-  console.log(streak, "streak");
+  const rotation = -225 + (180 * streak) / 30;
+
   return (
     <Box>
       <Typography variant="body2" color={theme.palette.common.white}>
@@ -38,7 +39,7 @@ const Streak = ({ streak }: { streak: number }) => {
               boxSizing: "border-box",
               borderColor: "#74E000 #74E000 #00171F #00171F",
               borderRadius: "50%",
-              transform: `rotate(${-225 + (180 * streak) / 30}deg)`,
+              transform: `rotate(${rotation}deg)`,
             },
           }}
         />

@@ -6,13 +6,13 @@ import { RootState } from "../../../../app/store";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import theme from "../../../../styles/theme";
 
-interface ElementInterface {
+interface Day {
   id: number;
   done?: boolean;
   reward: boolean;
 }
 
-const Item = ({ element }: { element: ElementInterface }) => {
+const Item = ({ element: day }: { element: Day }) => {
   const dispatch = useDispatch();
 
   return (
@@ -20,7 +20,7 @@ const Item = ({ element }: { element: ElementInterface }) => {
       sx={{
         color: theme.palette.common.black,
         borderRadius: "100%",
-        background: element.done ? theme.palette.secondary.main : "white",
+        background: day.done ? theme.palette.secondary.main : "white",
         width: "3rem",
         height: "3rem",
         display: "flex",
@@ -29,13 +29,11 @@ const Item = ({ element }: { element: ElementInterface }) => {
         cursor: "pointer",
       }}
       onClick={() => {
-        dispatch(toggleDone(element.id));
+        dispatch(toggleDone(day.id));
       }}
     >
-      {element.done && <CheckCircleIcon />}
-      {!element.done && (
-        <Typography variant="subtitle2">{element.id}</Typography>
-      )}
+      {day.done && <CheckCircleIcon />}
+      {!day.done && <Typography variant="subtitle2">{day.id}</Typography>}
     </Box>
   );
 };
@@ -47,7 +45,7 @@ const Calendar = () => {
     <Box>
       <Box sx={{ padding: "4rem", textAlign: "start" }}>
         <Typography variant="h4" color={theme.palette.common.white}>
-          {habit.goal.toUpperCase()}
+          {habit.goal.toLocaleUpperCase()}
         </Typography>
         <Typography variant="subtitle1" color={theme.palette.common.white}>
           {habit.schema}

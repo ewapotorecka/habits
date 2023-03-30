@@ -15,28 +15,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setNewHabit } from "../../../app/features/habit/habitSlice";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-const createHabitData = () => {
-  const habitData = [];
-  const rewardsDays = [
-    Math.ceil(Math.random() * 30),
-    Math.ceil(Math.random() * 30),
-    Math.ceil(Math.random() * 30),
-    Math.ceil(Math.random() * 30),
-    Math.ceil(Math.random() * 30),
-    Math.ceil(Math.random() * 30),
-  ];
-
-  for (let i = 1; i <= 30; i++) {
-    if (rewardsDays.includes(i)) {
-      habitData.push({ id: i, done: undefined, reward: true });
-    } else {
-      habitData.push({ id: i, done: undefined, reward: false });
-    }
-  }
-  return habitData;
-};
-
-createHabitData();
+import { createHabitData } from "../../../utilities/createHabitData";
 
 const HabitForm = () => {
   const [rewards, setRewards] = useState<string[]>([]);
@@ -55,7 +34,6 @@ const HabitForm = () => {
             schema: schemaInput,
             rewards,
             id: Math.floor(Math.random() * 100000),
-            startDate: Date.now(),
             habitStrength: {
               strength: 0,
               history: [],
