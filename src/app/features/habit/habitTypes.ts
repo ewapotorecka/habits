@@ -9,7 +9,7 @@ export interface HabitSlice {
   id: number | null;
   goal: string;
   schema: string;
-  rewards: string[];
+  rewards: { label: string; id: number }[];
   habitStrength: {
     strength: number;
     history: { strength: number; date: Date }[];

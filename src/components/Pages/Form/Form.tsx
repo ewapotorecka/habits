@@ -18,7 +18,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { createHabitData } from "../../../utilities/createHabitData";
 
 const HabitForm = () => {
-  const [rewards, setRewards] = useState<string[]>([]);
+  const [rewards, setRewards] = useState<{ label: string; id: number }[]>([]);
   const [rewardInput, setRewardInput] = useState("");
   const [goalInput, setGoalInput] = useState("");
   const [schemaInput, setSchemaInput] = useState("");
@@ -87,7 +87,13 @@ const HabitForm = () => {
                 if (e.key === "Enter") {
                   e.preventDefault();
 
-                  setRewards([...rewards, rewardInput]);
+                  setRewards([
+                    ...rewards,
+                    {
+                      label: rewardInput,
+                      id: Math.floor(Math.random() * 100000),
+                    },
+                  ]);
                   setRewardInput("");
                 }
               }}
@@ -95,7 +101,13 @@ const HabitForm = () => {
                 <IconButton
                   color="primary"
                   onClick={() => {
-                    setRewards([...rewards, rewardInput]);
+                    setRewards([
+                      ...rewards,
+                      {
+                        label: rewardInput,
+                        id: Math.floor(Math.random() * 100000),
+                      },
+                    ]);
                     setRewardInput("");
                   }}
                 >
@@ -113,18 +125,13 @@ const HabitForm = () => {
             }}
           >
             <Typography variant="body1">Rewards:</Typography>
-            {rewards.map((el, idx) => (
+            {rewards.map((el) => (
               <Chip
-                label={el}
-                key={`${idx}-${el}`}
-                onDelete={() => {
-                  const rewardsCopy = [...rewards];
-                  rewardsCopy.splice(
-                    rewardsCopy.findIndex((element) => element === el),
-                    1
-                  );
-                  setRewards(rewardsCopy);
-                }}
+                label={el.label}
+                key={el.id}
+                onDelete={() =>
+                  setRewards(rewards.filter((element) => element.id !== el.id))
+                }
               />
             ))}
           </Box>
