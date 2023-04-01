@@ -1,17 +1,15 @@
-import { HabitSlice } from "../app/features/habit/habitTypes";
+export class HabitStorage<T> {
+  key: string;
 
-export class HabitStorage {
-  habit: HabitSlice | null;
-  constructor() {
-    const savedHabit = localStorage.getItem("habit");
-
-    this.habit = savedHabit ? JSON.parse(savedHabit) : null;
+  constructor(key: string) {
+    this.key = key;
   }
-  updateStorage(data: { habit: HabitSlice }) {
-    console.log(data);
-    localStorage.setItem("habit", JSON.stringify(data.habit));
+
+  updateStorage(data: T) {
+    localStorage.setItem(this.key, JSON.stringify(data));
   }
   getHabitFromStorage() {
-    return this.habit;
+    const savedItem = localStorage.getItem(this.key);
+    return savedItem ? JSON.parse(savedItem) : null;
   }
 }

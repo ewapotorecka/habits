@@ -4,7 +4,7 @@ import { HabitSlice } from "./habitTypes";
 
 import { HabitStorage } from "../../../utilities/storage";
 
-export const storage = new HabitStorage();
+export const storage = new HabitStorage("habit");
 
 const initialHabit = {
   id: null,

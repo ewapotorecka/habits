@@ -9,16 +9,15 @@ import habitReducer, {
   storage,
   toggleDone,
 } from "./features/habit/habitSlice";
-import { HabitSlice } from "./features/habit/habitTypes";
 
 const listenerMiddleware = createListenerMiddleware();
 
 listenerMiddleware.startListening({
   matcher: isAnyOf(setNewHabit, toggleDone),
   effect: (action, listenerApi) => {
-    console.log("Todo added: ", action.payload, listenerApi.getState());
-    const state = listenerApi.getState();
-    storage.updateStorage(state as { habit: HabitSlice });
+    const state = listenerApi.getState() as ReturnType<typeof store.getState>;
+
+    storage.updateStorage(state.habit);
   },
 });
 

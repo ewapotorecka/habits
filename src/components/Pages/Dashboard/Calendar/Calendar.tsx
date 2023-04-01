@@ -12,7 +12,7 @@ interface Day {
   reward: boolean;
 }
 
-const Item = ({ element: day }: { element: Day }) => {
+const Day = ({ element: day }: { element: Day }) => {
   const dispatch = useDispatch();
 
   return (
@@ -60,8 +60,8 @@ const Calendar = () => {
           padding: "4rem",
         }}
       >
-        {habit.data.map((el) => (
-          <Item element={el} key={el.id} />
+        {habit.data.map((day) => (
+          <Day element={day} key={day.id} />
         ))}
       </Box>
     </Box>
