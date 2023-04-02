@@ -16,7 +16,8 @@ import { useNavigate } from "react-router-dom";
 import { setNewHabit } from "../../../app/features/habit/habitSlice";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { createHabitData } from "../../../utilities/createHabitData";
-import { HabitSlice } from "../../../app/features/habit/habitTypes";
+import { Habit } from "../../../app/features/habit/habitTypes";
+import lightFormat from "date-fns/lightFormat";
 
 const HabitForm = () => {
   const [rewards, setRewards] = useState<{ label: string; id: number }[]>([]);
@@ -30,7 +31,7 @@ const HabitForm = () => {
     <Box sx={{ padding: "4rem", maxWidth: "50%" }}>
       <form
         onSubmit={(e) => {
-          const newHabit: HabitSlice = {
+          const newHabit: Habit = {
             goal: goalInput,
             schema: schemaInput,
             rewards,
@@ -40,6 +41,7 @@ const HabitForm = () => {
               history: [],
             },
             data: createHabitData(),
+            startDate: lightFormat(new Date(), "yyyy-MM-dd"),
           };
           e.preventDefault();
           dispatch(setNewHabit(newHabit));

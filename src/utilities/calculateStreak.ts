@@ -1,19 +1,18 @@
-import lightFormat from "date-fns/lightFormat";
-import { HabitData } from "../app/features/habit/habitTypes";
+import { Habit } from "../app/features/habit/habitTypes";
+import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 
-export function calculateStreakFromHabitData(data: HabitData[]) {
-  const today = new Date(Date.now());
+export function calculateStreakFromHabitData(habit: Habit) {
   let streak = 0;
-
-  const todayIndex = data.findIndex(
-    (el) => el.date === lightFormat(today, "yyyy-MM-dd")
+  const daysCount = differenceInCalendarDays(
+    new Date(),
+    new Date(habit.startDate)
   );
 
-  for (let i = todayIndex; i >= 0; i--) {
-    if (data[i].done) {
+  for (let i = daysCount; i >= 0; i--) {
+    if (habit.data[i].done) {
       streak++;
     } else {
-      return streak;
+      break;
     }
   }
   return streak;

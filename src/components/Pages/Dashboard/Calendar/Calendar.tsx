@@ -5,14 +5,9 @@ import { toggleDone } from "../../../../app/features/habit/habitSlice";
 import { RootState } from "../../../../app/store";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import theme from "../../../../styles/theme";
+import { HabitData } from "../../../../app/features/habit/habitTypes";
 
-interface Day {
-  id: number;
-  done?: boolean;
-  reward: boolean;
-}
-
-const Day = ({ element: day }: { element: Day }) => {
+const Day = ({ day, idx }: { day: HabitData; idx: number }) => {
   const dispatch = useDispatch();
 
   return (
@@ -29,11 +24,11 @@ const Day = ({ element: day }: { element: Day }) => {
         cursor: "pointer",
       }}
       onClick={() => {
-        dispatch(toggleDone(day.id));
+        dispatch(toggleDone(idx));
       }}
     >
       {day.done && <CheckCircleIcon />}
-      {!day.done && <Typography variant="subtitle2">{day.id}</Typography>}
+      {!day.done && <Typography variant="subtitle2">{idx + 1}</Typography>}
     </Box>
   );
 };
@@ -60,8 +55,8 @@ const Calendar = () => {
           padding: "4rem",
         }}
       >
-        {habit.data.map((day) => (
-          <Day element={day} key={day.id} />
+        {habit.data.map((day, idx) => (
+          <Day day={day} key={idx} idx={idx} />
         ))}
       </Box>
     </Box>

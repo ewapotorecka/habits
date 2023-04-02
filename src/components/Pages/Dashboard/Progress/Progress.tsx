@@ -7,7 +7,7 @@ import { calculateStreakFromHabitData } from "../../../../utilities/calculateStr
 
 const Progress = () => {
   const habit = useSelector((state: RootState) => state.habit);
-  const streak = calculateStreakFromHabitData(habit.data);
+  const streak = calculateStreakFromHabitData(habit);
 
   return (
     <Box

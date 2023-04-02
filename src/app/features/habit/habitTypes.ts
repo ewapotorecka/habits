@@ -1,11 +1,9 @@
 export interface HabitData {
-  id: number;
   done?: boolean;
   reward: boolean;
-  date: string;
 }
 
-export interface HabitSlice {
+export interface Habit {
   id: number | null;
   goal: string;
   schema: string;
@@ -15,4 +13,5 @@ export interface HabitSlice {
     history: { strength: number; date: Date }[];
   };
   data: HabitData[];
+  startDate: string;
 }
