@@ -1,26 +1,19 @@
 export function createHabitData() {
   const habitData = [];
-  const rewardsDays = [
-    Math.ceil(Math.random() * 30),
-    Math.ceil(Math.random() * 30),
-    Math.ceil(Math.random() * 30),
-    Math.ceil(Math.random() * 30),
-    Math.ceil(Math.random() * 30),
-    Math.ceil(Math.random() * 30),
-  ];
+  const rewardsDays: number[] = [];
+  do {
+    const random = Math.ceil(Math.random() * 30);
+
+    if (!rewardsDays.includes(random)) {
+      rewardsDays.push(random);
+    }
+  } while (rewardsDays.length < 6);
 
   for (let i = 1; i <= 30; i++) {
-    if (rewardsDays.includes(i)) {
-      habitData.push({
-        done: undefined,
-        reward: true,
-      });
-    } else {
-      habitData.push({
-        done: undefined,
-        reward: false,
-      });
-    }
+    habitData.push({
+      done: false,
+      reward: rewardsDays.includes(i),
+    });
   }
   return habitData;
 }

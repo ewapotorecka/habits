@@ -20,7 +20,7 @@ const initialHabit = {
 
 const savedHabit = storage.getHabitFromStorage();
 
-const initialState: Habit = savedHabit ? savedHabit : initialHabit;
+const initialState: Habit = savedHabit ?? initialHabit;
 
 export const habitSlice = createSlice({
   name: "habit",

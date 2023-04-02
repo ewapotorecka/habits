@@ -7,7 +7,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import theme from "../../../../styles/theme";
 import { HabitData } from "../../../../app/features/habit/habitTypes";
 
-const Day = ({ day, idx }: { day: HabitData; idx: number }) => {
+const Day = ({ day, index }: { day: HabitData; index: number }) => {
   const dispatch = useDispatch();
 
   return (
@@ -24,11 +24,11 @@ const Day = ({ day, idx }: { day: HabitData; idx: number }) => {
         cursor: "pointer",
       }}
       onClick={() => {
-        dispatch(toggleDone(idx));
+        dispatch(toggleDone(index));
       }}
     >
       {day.done && <CheckCircleIcon />}
-      {!day.done && <Typography variant="subtitle2">{idx + 1}</Typography>}
+      {!day.done && <Typography variant="subtitle2">{index + 1}</Typography>}
     </Box>
   );
 };
@@ -55,8 +55,8 @@ const Calendar = () => {
           padding: "4rem",
         }}
       >
-        {habit.data.map((day, idx) => (
-          <Day day={day} key={idx} idx={idx} />
+        {habit.data.map((day, index) => (
+          <Day day={day} key={index} index={index} />
         ))}
       </Box>
     </Box>
