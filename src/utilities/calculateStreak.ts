@@ -9,7 +9,7 @@ export function calculateStreakFromHabitData(habit: Habit) {
   );
 
   for (let i = daysCount; i >= 0; i--) {
-    if (habit.data[i].done) {
+    if (habit.data[i]) {
       streak++;
     } else {
       break;

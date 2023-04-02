@@ -5,9 +5,8 @@ import { toggleDone } from "../../../../app/features/habit/habitSlice";
 import { RootState } from "../../../../app/store";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import theme from "../../../../styles/theme";
-import { HabitData } from "../../../../app/features/habit/habitTypes";
 
-const Day = ({ day, index }: { day: HabitData; index: number }) => {
+const Day = ({ day, index }: { day: boolean; index: number }) => {
   const dispatch = useDispatch();
 
   return (
@@ -15,7 +14,7 @@ const Day = ({ day, index }: { day: HabitData; index: number }) => {
       sx={{
         color: theme.palette.common.black,
         borderRadius: "100%",
-        background: day.done ? theme.palette.secondary.main : "white",
+        background: day ? theme.palette.secondary.main : "white",
         width: "3rem",
         height: "3rem",
         display: "flex",
@@ -27,8 +26,8 @@ const Day = ({ day, index }: { day: HabitData; index: number }) => {
         dispatch(toggleDone(index));
       }}
     >
-      {day.done && <CheckCircleIcon />}
-      {!day.done && <Typography variant="subtitle2">{index + 1}</Typography>}
+      {day && <CheckCircleIcon />}
+      {!day && <Typography variant="subtitle2">{index + 1}</Typography>}
     </Box>
   );
 };

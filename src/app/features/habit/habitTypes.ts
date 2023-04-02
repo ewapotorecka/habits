@@ -1,8 +1,3 @@
-export interface HabitData {
-  done?: boolean;
-  reward: boolean;
-}
-
 export interface Habit {
   id: number | null;
   goal: string;
@@ -12,6 +7,6 @@ export interface Habit {
     strength: number;
     history: { strength: number; date: Date }[];
   };
-  data: HabitData[];
+  data: boolean[];
   startDate: string;
 }

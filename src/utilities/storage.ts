@@ -1,4 +1,4 @@
-export class HabitStorage<T> {
+export class Storage<T> {
   key: string;
 
   constructor(key: string) {

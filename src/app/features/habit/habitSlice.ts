@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Habit } from "./habitTypes";
 
-import { HabitStorage } from "../../../utilities/storage";
+import { Storage } from "../../../utilities/storage";
 
-export const storage = new HabitStorage("habit");
+export const storage = new Storage<Habit>("habit");
 
-const initialHabit = {
+const initialHabit: Habit = {
   id: null,
   goal: "",
   schema: "",
@@ -16,6 +16,7 @@ const initialHabit = {
     history: [],
   },
   data: [],
+  startDate: "",
 };
 
 const savedHabit = storage.getHabitFromStorage();
@@ -27,11 +28,7 @@ export const habitSlice = createSlice({
   initialState,
   reducers: {
     toggleDone: (state, action: PayloadAction<number>) => {
-      const dayToToggle = state.data[action.payload];
-
-      if (dayToToggle) {
-        dayToToggle.done = !dayToToggle.done;
-      }
+      state.data[action.payload] = !state.data[action.payload];
     },
     setNewHabit: (state, action: PayloadAction<Habit>) => {
       return { ...action.payload };
