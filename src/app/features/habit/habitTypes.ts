@@ -1,5 +1,5 @@
 export interface Habit {
-  id: number | null;
+  id: string;
   goal: string;
   schema: string;
   rewards: { label: string; id: number }[];

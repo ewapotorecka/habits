@@ -6,7 +6,7 @@ import { RootState } from "../../../../app/store";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import theme from "../../../../styles/theme";
 
-const Day = ({ day, index }: { day: boolean; index: number }) => {
+const Day = ({ done, index }: { done: boolean; index: number }) => {
   const dispatch = useDispatch();
 
   return (
@@ -14,7 +14,7 @@ const Day = ({ day, index }: { day: boolean; index: number }) => {
       sx={{
         color: theme.palette.common.black,
         borderRadius: "100%",
-        background: day ? theme.palette.secondary.main : "white",
+        background: done ? theme.palette.secondary.main : "white",
         width: "3rem",
         height: "3rem",
         display: "flex",
@@ -26,8 +26,8 @@ const Day = ({ day, index }: { day: boolean; index: number }) => {
         dispatch(toggleDone(index));
       }}
     >
-      {day && <CheckCircleIcon />}
-      {!day && <Typography variant="subtitle2">{index + 1}</Typography>}
+      {done && <CheckCircleIcon />}
+      {!done && <Typography variant="subtitle2">{index + 1}</Typography>}
     </Box>
   );
 };
@@ -54,8 +54,8 @@ const Calendar = () => {
           padding: "4rem",
         }}
       >
-        {habit.data.map((day, index) => (
-          <Day day={day} key={index} index={index} />
+        {habit.data.map((done, index) => (
+          <Day done={done} key={index} index={index} />
         ))}
       </Box>
     </Box>

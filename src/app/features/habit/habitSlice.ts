@@ -7,7 +7,7 @@ import { Storage } from "../../../utilities/storage";
 export const storage = new Storage<Habit>("habit");
 
 const initialHabit: Habit = {
-  id: null,
+  id: "",
   goal: "",
   schema: "",
   rewards: [],

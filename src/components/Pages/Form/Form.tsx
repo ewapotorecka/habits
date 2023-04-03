@@ -15,7 +15,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setNewHabit } from "../../../app/features/habit/habitSlice";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { createHabitData } from "../../../utilities/createHabitData";
 import { Habit } from "../../../app/features/habit/habitTypes";
 import lightFormat from "date-fns/lightFormat";
 
@@ -35,12 +34,12 @@ const HabitForm = () => {
             goal: goalInput,
             schema: schemaInput,
             rewards,
-            id: Math.floor(Math.random() * 100000),
+            id: crypto.randomUUID(),
             habitStrength: {
               strength: 0,
               history: [],
             },
-            data: createHabitData(),
+            data: [...new Array(30)].map(() => false),
             startDate: lightFormat(new Date(), "yyyy-MM-dd"),
           };
           e.preventDefault();
@@ -128,12 +127,16 @@ const HabitForm = () => {
             }}
           >
             <Typography variant="body1">Rewards:</Typography>
-            {rewards.map((el) => (
+            {rewards.map((reward) => (
               <Chip
-                label={el.label}
-                key={el.id}
+                label={reward.label}
+                key={reward.id}
                 onDelete={() =>
-                  setRewards(rewards.filter((element) => element.id !== el.id))
+                  setRewards(
+                    rewards.filter(
+                      (rewardToDelete) => rewardToDelete.id !== reward.id
+                    )
+                  )
                 }
               />
             ))}
