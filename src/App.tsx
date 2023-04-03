@@ -1,23 +1,35 @@
-import logo from "./logo.svg";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
+import { RootState } from "./app/store";
+import Nav from "./components/Layout/Nav";
+import Dashboard from "./components/Pages/Dashboard/Dashboard";
+import HabitForm from "./components/Pages/Form/Form";
+import Knowledge from "./components/Pages/Knowledge/Knowledge";
+import Profile from "./components/Pages/Profile/Profile";
+import Tracker from "./components/Pages/Tracker/Tracker";
+import { useSelector } from "react-redux";
+
+import Welcome from "./components/Pages/Welcome/Welcome";
 
 function App() {
+  const location = useLocation();
+  const habit = useSelector((state: RootState) => state.habit);
+  const isHabitSaved = !!habit.id;
+  const withNav =
+    (location.pathname !== "/" && location.pathname !== "/form") ||
+    (location.pathname === "/" && isHabitSaved);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {withNav && <Nav />}
+
+      <Routes>
+        <Route path="/" element={isHabitSaved ? <Dashboard /> : <Welcome />} />
+        <Route path="/form" element={<HabitForm />} />
+        <Route path="/tracker" element={<Tracker />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/knowledge" element={<Knowledge />} />
+      </Routes>
     </div>
   );
 }
