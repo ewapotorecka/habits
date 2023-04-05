@@ -69,6 +69,7 @@ const HabitForm = () => {
               value={formik.values.goal}
               onChange={formik.handleChange}
               error={formik.touched.goal && Boolean(formik.errors.goal)}
+              inputProps={{ "data-testid": "goal-input" }}
             />
 
             <FormHelperText id="goal-helper-text">
@@ -88,6 +89,7 @@ const HabitForm = () => {
               value={formik.values.schema}
               onChange={formik.handleChange}
               error={formik.touched.schema && Boolean(formik.errors.schema)}
+              inputProps={{ "data-testid": "schema-input" }}
             />
             <FormHelperText id="schema-helper-text">
               {!formik.errors.schema
@@ -105,6 +107,7 @@ const HabitForm = () => {
               name="rewards"
               aria-describedby="my-helper-text"
               value={rewardInput}
+              inputProps={{ "data-testid": "reward-input" }}
               onChange={(e) => setRewardInput(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -133,6 +136,7 @@ const HabitForm = () => {
                     ]);
                     setRewardInput("");
                   }}
+                  data-testid="add-reward"
                 >
                   <AddCircleIcon />
                 </IconButton>
@@ -171,7 +175,7 @@ const HabitForm = () => {
               )}
           </Box>
         </FormGroup>
-        <Button type="submit" variant="contained">
+        <Button type="submit" variant="contained" data-testid="create-habit">
           Create new habit
         </Button>
       </form>
