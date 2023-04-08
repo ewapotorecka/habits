@@ -40,11 +40,8 @@ const Day = ({
         cursor: "pointer",
       }}
       onClick={() => {
-        console.log(done, reward, "click");
         if (!done && reward) {
-          console.log("yaaaay", reward.label);
           setRewardVisible(true);
-          //   dispatch(toggleDone(index));
         }
         dispatch(toggleDone(index));
       }}
@@ -66,7 +63,10 @@ const Day = ({
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={() => setRewardVisible(false)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setRewardVisible(false);
+            }}
             variant="contained"
             color="secondary"
           >
@@ -80,7 +80,6 @@ const Day = ({
 
 const Calendar = () => {
   const habit = useSelector((state: RootState) => state.habit);
-  console.log(habit);
 
   return (
     <Box>

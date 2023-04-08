@@ -13,7 +13,6 @@ const Progress = () => {
     <Box
       sx={{
         paddingTop: "10rem",
-        height: "100%",
       }}
     >
       <Streak streak={streak} />
