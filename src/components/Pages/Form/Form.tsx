@@ -26,18 +26,23 @@ const validationSchema = yup.object({
   rewards: yup.array().min(1, "Add at least one reward"),
 });
 
+const initialValues: {
+  goal: string;
+  schema: string;
+  rewards: { id: string; label: string }[];
+} = {
+  goal: "",
+  schema: "",
+  rewards: [],
+};
+
 const HabitForm = () => {
   const [rewardInput, setRewardInput] = useState("");
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formik = useFormik({
-    initialValues: {
-      goal: "",
-      schema: "",
-      rewards: [],
-    },
-    validationSchema: validationSchema,
+    initialValues,
+    validationSchema,
     onSubmit: (values) => {
       const newHabit: Habit = {
         goal: values.goal,
@@ -55,6 +60,16 @@ const HabitForm = () => {
       navigate("/");
     },
   });
+  const addReward = () => {
+    formik.setFieldValue("rewards", [
+      ...formik.values.rewards,
+      {
+        label: rewardInput,
+        id: crypto.randomUUID(),
+      },
+    ]);
+    setRewardInput("");
+  };
 
   return (
     <Box sx={{ padding: "4rem", maxWidth: "50%" }}>
@@ -113,28 +128,14 @@ const HabitForm = () => {
                 if (e.key === "Enter") {
                   e.preventDefault();
 
-                  formik.setFieldValue("rewards", [
-                    ...formik.values.rewards,
-                    {
-                      label: rewardInput,
-                      id: Math.floor(Math.random() * 100000),
-                    },
-                  ]);
-                  setRewardInput("");
+                  addReward();
                 }
               }}
               endAdornment={
                 <IconButton
                   color="primary"
                   onClick={() => {
-                    formik.setFieldValue("rewards", [
-                      ...formik.values.rewards,
-                      {
-                        label: rewardInput,
-                        id: Math.floor(Math.random() * 100000),
-                      },
-                    ]);
-                    setRewardInput("");
+                    addReward();
                   }}
                   data-testid="add-reward"
                 >
@@ -143,7 +144,7 @@ const HabitForm = () => {
               }
             />
             <FormHelperText id="rewards-helper-text">
-              {formik.touched.rewards && formik.errors.rewards}
+              {formik.touched.rewards && (formik.errors.rewards as string)}
             </FormHelperText>
           </FormControl>
           <Box
@@ -155,24 +156,20 @@ const HabitForm = () => {
             }}
           >
             <Typography variant="body1">Rewards:</Typography>
-            {formik.values.rewards.length > 0 &&
-              formik.values.rewards.map(
-                (reward: { label: string; id: number }) => (
-                  <Chip
-                    label={reward.label}
-                    key={reward.id}
-                    onDelete={() =>
-                      formik.setFieldValue(
-                        "rewards",
-                        formik.values.rewards.filter(
-                          (rewardToDelete: { id: number; label: string }) =>
-                            rewardToDelete.id !== reward.id
-                        )
-                      )
-                    }
-                  />
-                )
-              )}
+            {formik.values.rewards.map((reward) => (
+              <Chip
+                label={reward.label}
+                key={reward.id}
+                onDelete={() =>
+                  formik.setFieldValue(
+                    "rewards",
+                    formik.values.rewards.filter(
+                      (rewardToDelete) => rewardToDelete.id !== reward.id
+                    )
+                  )
+                }
+              />
+            ))}
           </Box>
         </FormGroup>
         <Button type="submit" variant="contained" data-testid="create-habit">
