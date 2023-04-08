@@ -17,6 +17,7 @@ import { setNewHabit } from "../../../app/features/habit/habitSlice";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Habit } from "../../../app/features/habit/habitTypes";
 import lightFormat from "date-fns/lightFormat";
+import { createRewardsData } from "../../../utilities/createRewardsData";
 
 const HabitForm = () => {
   const [rewards, setRewards] = useState<{ label: string; id: number }[]>([]);
@@ -33,7 +34,7 @@ const HabitForm = () => {
           const newHabit: Habit = {
             goal: goalInput,
             schema: schemaInput,
-            rewards,
+            rewards: createRewardsData(rewards),
             id: crypto.randomUUID(),
             habitStrength: {
               strength: 0,
