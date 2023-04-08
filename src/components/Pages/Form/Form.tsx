@@ -19,6 +19,7 @@ import { Habit } from "../../../app/features/habit/habitTypes";
 import lightFormat from "date-fns/lightFormat";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import crypto from "crypto";
 
 const validationSchema = yup.object({
   goal: yup.string().required("Goal is required"),
