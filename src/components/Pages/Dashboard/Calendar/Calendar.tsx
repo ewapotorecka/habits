@@ -105,7 +105,7 @@ const Calendar = () => {
             done={done}
             key={index}
             index={index}
-            reward={habit.rewards.filter((el) => el.day === index + 1)[0]}
+            reward={habit.rewards.find((el) => el.day === index + 1)}
           />
         ))}
       </Box>

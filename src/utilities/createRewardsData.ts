@@ -1,12 +1,14 @@
 export function createRewardsData(rewards: { label: string; id: number }[]) {
   const rewardsData: { day: number; label: string }[] = [];
 
-  do {
+  while (rewardsData.length < 6) {
     const reward = rewards[Math.floor(Math.random() * rewards.length)];
-    const day = Math.floor(Math.random() * 30);
+    const day = Math.ceil(Math.random() * 30);
 
-    rewardsData.push({ label: reward.label, day });
-  } while (rewardsData.length < 6);
+    if (!rewardsData.some((reward) => reward.day === day)) {
+      rewardsData.push({ label: reward.label, day });
+    }
+  }
 
   return rewardsData;
 }

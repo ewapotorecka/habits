@@ -31,10 +31,12 @@ const HabitForm = () => {
     <Box sx={{ padding: "4rem", maxWidth: "50%" }}>
       <form
         onSubmit={(e) => {
+          const rewardsData = createRewardsData(rewards);
+
           const newHabit: Habit = {
             goal: goalInput,
             schema: schemaInput,
-            rewards: createRewardsData(rewards),
+            rewards: rewardsData,
             id: crypto.randomUUID(),
             habitStrength: {
               strength: 0,
