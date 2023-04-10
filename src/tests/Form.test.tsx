@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "../app/store";
 import { Provider } from "react-redux";
@@ -38,7 +38,9 @@ test("displays rewards list after adding reward in the form", async () => {
   userEvent.type(input, "new reward");
   userEvent.click(addButton);
 
-  expect(screen.getByText(/new reward/i)).toBeInTheDocument();
+  const rewardsContainer = screen.getByTestId("rewards-container");
+
+  expect(within(rewardsContainer).getByText(/new reward/i)).toBeInTheDocument();
 });
 
 test("validates all of the required fields in the form", async () => {
@@ -54,9 +56,17 @@ test("validates all of the required fields in the form", async () => {
 
   fireEvent.click(submit);
 
-  expect(await screen.findByText(/Goal is required/i)).toBeInTheDocument();
-  expect(await screen.findByText(/Schema is required/i)).toBeInTheDocument();
+  const goalHelperText = screen.getByTestId("goal-helper");
+  const schemaHelperText = screen.getByTestId("schema-helper");
+  const rewardsHelperText = screen.getByTestId("rewards-helper");
+
   expect(
-    await screen.findByText(/Add at least one reward/i)
+    await within(goalHelperText).findByText(/Goal is required/i)
+  ).toBeInTheDocument();
+  expect(
+    await within(schemaHelperText).findByText(/Schema is required/i)
+  ).toBeInTheDocument();
+  expect(
+    await within(rewardsHelperText).findByText(/Add at least one reward/i)
   ).toBeInTheDocument();
 });

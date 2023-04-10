@@ -19,7 +19,6 @@ import { Habit } from "../../../app/features/habit/habitTypes";
 import lightFormat from "date-fns/lightFormat";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import crypto from "crypto";
 
 const validationSchema = yup.object({
   goal: yup.string().required("Goal is required"),
@@ -88,7 +87,7 @@ const HabitForm = () => {
               inputProps={{ "data-testid": "goal-input" }}
             />
 
-            <FormHelperText id="goal-helper-text">
+            <FormHelperText id="goal-helper-text" data-testid="goal-helper">
               {!formik.errors.goal
                 ? "Keep it simple and specific."
                 : formik.touched.goal && formik.errors.goal}
@@ -107,7 +106,7 @@ const HabitForm = () => {
               error={formik.touched.schema && Boolean(formik.errors.schema)}
               inputProps={{ "data-testid": "schema-input" }}
             />
-            <FormHelperText id="schema-helper-text">
+            <FormHelperText id="schema-helper-text" data-testid="schema-helper">
               {!formik.errors.schema
                 ? "Plan when and where you will do your chosen action. Be consistent: choose a time and place that you encounter every day of the week."
                 : formik.touched.schema && formik.errors.schema}
@@ -144,7 +143,10 @@ const HabitForm = () => {
                 </IconButton>
               }
             />
-            <FormHelperText id="rewards-helper-text">
+            <FormHelperText
+              id="rewards-helper-text"
+              data-testid="rewards-helper"
+            >
               {formik.touched.rewards && (formik.errors.rewards as string)}
             </FormHelperText>
           </FormControl>
@@ -155,6 +157,7 @@ const HabitForm = () => {
               flexWrap: "wrap",
               gap: "1rem",
             }}
+            data-testid="rewards-container"
           >
             <Typography variant="body1">Rewards:</Typography>
             {formik.values.rewards.map((reward) => (
