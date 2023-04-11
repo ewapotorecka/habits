@@ -17,6 +17,7 @@ import { setNewHabit } from "../../../app/features/habit/habitSlice";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Habit } from "../../../app/features/habit/habitTypes";
 import lightFormat from "date-fns/lightFormat";
+import { createRewardsData } from "../../../utilities/createRewardsData";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -29,7 +30,7 @@ const validationSchema = yup.object({
 const initialValues: {
   goal: string;
   schema: string;
-  rewards: { id: string; label: string }[];
+  rewards: { label: string; id: number }[];
 } = {
   goal: "",
   schema: "",
@@ -44,10 +45,12 @@ const HabitForm = () => {
     initialValues,
     validationSchema,
     onSubmit: (values) => {
+      const rewardsData = createRewardsData(values.rewards);
+
       const newHabit: Habit = {
         goal: values.goal,
         schema: values.schema,
-        rewards: values.rewards,
+        rewards: rewardsData,
         id: crypto.randomUUID(),
         habitStrength: {
           strength: 0,
