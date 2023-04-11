@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
-import App from "./App";
+import App from "../App";
 import { BrowserRouter } from "react-router-dom";
-import { store } from "./app/store";
+import { store } from "../app/store";
 import { Provider } from "react-redux";
 
-test("renders learn react link", () => {
+test("renders welcome screen", () => {
   render(
     <Provider store={store}>
       <BrowserRouter>
