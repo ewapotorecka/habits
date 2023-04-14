@@ -10,6 +10,7 @@ import Tracker from "./components/Pages/Tracker/Tracker";
 import { useSelector } from "react-redux";
 
 import Welcome from "./components/Pages/Welcome/Welcome";
+import HabitStrengthForm from "./components/Pages/Dashboard/HabitStrenghtForm/HabitStrengthForm";
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
         <Route path="/tracker" element={<Tracker />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/knowledge" element={<Knowledge />} />
+        <Route path="/strength" element={<HabitStrengthForm />} />
       </Routes>
     </div>
   );

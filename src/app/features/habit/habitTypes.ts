@@ -5,8 +5,13 @@ export interface Habit {
   rewards: { label: string; day: number }[];
   habitStrength: {
     strength: number;
-    history: { strength: number; date: Date }[];
+    history: HabitStrength[];
   };
   data: boolean[];
   startDate: string;
+}
+
+export interface HabitStrength {
+  strength: number;
+  date: string;
 }

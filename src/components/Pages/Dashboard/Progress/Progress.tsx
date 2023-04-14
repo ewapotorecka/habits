@@ -16,7 +16,7 @@ const Progress = () => {
       }}
     >
       <Streak streak={streak} />
-      <HabitStrength strength={30} />
+      <HabitStrength strength={(habit.habitStrength.strength / 4) * 100} />
     </Box>
   );
 };
