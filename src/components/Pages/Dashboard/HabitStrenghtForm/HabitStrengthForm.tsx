@@ -8,6 +8,7 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Typography,
 } from "@mui/material";
 
 import {
@@ -17,12 +18,13 @@ import {
   FormikTouched,
   useFormik,
 } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import * as yup from "yup";
 import { updateHabitStrength } from "../../../../app/features/habit/habitSlice";
 import lightFormat from "date-fns/lightFormat";
 import { options, questions } from "./questions";
+import { RootState } from "../../../../app/store";
 
 const validationSchema = yup.object({
   q1: yup.string().required("Choose an option"),
@@ -72,6 +74,8 @@ const initialValues: QuestionValues = {
 const HabitStrengthForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const habit = useSelector((state: RootState) => state.habit);
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -90,6 +94,9 @@ const HabitStrengthForm = () => {
 
   return (
     <Box sx={{ padding: "4rem", maxWidth: "50%" }}>
+      <Typography variant="body2">
+        Think about your habit: {habit.goal}. Answer following questions:
+      </Typography>
       <FormikProvider value={formik}>
         <form onSubmit={formik.handleSubmit}>
           <FormGroup sx={{ display: "flex", gap: "2rem" }}>
