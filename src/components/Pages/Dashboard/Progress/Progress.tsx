@@ -1,9 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Streak from "./Streak/Streak";
 import HabitStrength from "./HabitStrength/HabitStrength";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../app/store";
 import { calculateStreakFromHabitData } from "../../../../utilities/calculateStreak";
+import { Link } from "react-router-dom";
 
 const Progress = () => {
   const habit = useSelector((state: RootState) => state.habit);
@@ -16,7 +17,14 @@ const Progress = () => {
       }}
     >
       <Streak streak={streak} />
-      <HabitStrength strength={30} />
+      <HabitStrength
+        strength={Math.floor((habit.habitStrength.strength / 4) * 100)}
+      />
+      <Link to="/strength">
+        <Button color="secondary" size="small">
+          Check current strength
+        </Button>
+      </Link>
     </Box>
   );
 };

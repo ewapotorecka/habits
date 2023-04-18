@@ -8,12 +8,13 @@ import habitReducer, {
   setNewHabit,
   storage,
   toggleDone,
+  updateHabitStrength,
 } from "./features/habit/habitSlice";
 
 const listenerMiddleware = createListenerMiddleware();
 
 listenerMiddleware.startListening({
-  matcher: isAnyOf(setNewHabit, toggleDone),
+  matcher: isAnyOf(setNewHabit, toggleDone, updateHabitStrength),
   effect: (action, listenerApi) => {
     const state = listenerApi.getState() as ReturnType<typeof store.getState>;
 

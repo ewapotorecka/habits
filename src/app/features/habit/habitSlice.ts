@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Habit } from "./habitTypes";
+import { Habit, HabitStrength } from "./habitTypes";
 
 import { Storage } from "../../../utilities/storage";
 
@@ -33,9 +33,19 @@ export const habitSlice = createSlice({
     setNewHabit: (state, action: PayloadAction<Habit>) => {
       return { ...action.payload };
     },
+    updateHabitStrength: (state, action: PayloadAction<HabitStrength>) => {
+      state.habitStrength = {
+        strength: action.payload.strength,
+        history: [
+          ...state.habitStrength.history,
+          { strength: action.payload.strength, date: action.payload.date },
+        ],
+      };
+    },
   },
 });
 
-export const { toggleDone, setNewHabit } = habitSlice.actions;
+export const { toggleDone, setNewHabit, updateHabitStrength } =
+  habitSlice.actions;
 
 export default habitSlice.reducer;
