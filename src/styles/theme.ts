@@ -85,13 +85,13 @@ const theme = createTheme({
     //   lineHeight: 1.3,
     //   letterSpacing: "2px",
     // },
-    // h6: {
-    //   fontFamily: "'Kanit', sans-serif",
-    //   fontSize: "1.5rem",
-    //   fontWeight: 700,
-    //   lineHeight: 1.3,
-    //   letterSpacing: "-1%",
-    // },
+    h6: {
+      fontFamily: "'Barlow', sans-serif",
+      fontSize: "1.5rem",
+      fontWeight: 400,
+      lineHeight: 1.3,
+      letterSpacing: "2px",
+    },
     subtitle1: {
       fontFamily: "'Lato', sans-serif",
       fontSize: "1.5rem",

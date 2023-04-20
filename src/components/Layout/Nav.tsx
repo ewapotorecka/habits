@@ -17,7 +17,7 @@ const Nav = () => {
           sx={{ display: "flex", gap: "2rem", justifyContent: "flex-end" }}
         >
           <Button
-            variant={pathname === "/" ? "contained" : "outlined"}
+            variant={pathname === "/" ? "outlined" : "text"}
             color="secondary"
           >
             <Link
@@ -30,7 +30,7 @@ const Nav = () => {
             </Link>
           </Button>
 
-          <Button
+          {/* <Button
             variant={pathname === "/knowledge" ? "contained" : "outlined"}
             color="secondary"
           >
@@ -42,9 +42,9 @@ const Nav = () => {
             >
               Knowledge
             </Link>
-          </Button>
+          </Button> */}
           <Button
-            variant={pathname === "/tracker" ? "contained" : "outlined"}
+            variant={pathname === "/tracker" ? "outlined" : "text"}
             color="secondary"
           >
             <Link
@@ -58,7 +58,7 @@ const Nav = () => {
           </Button>
 
           <Button
-            variant={pathname === "/profile" ? "contained" : "outlined"}
+            variant={pathname === "/profile" ? "outlined" : "text"}
             color="secondary"
           >
             <Link

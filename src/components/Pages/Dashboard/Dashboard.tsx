@@ -32,7 +32,8 @@ const Dashboard = () => {
         sx={{
           display: "flex",
           flexDirection: "row",
-          height: "100vh",
+          minHeight: "100vh",
+          height: "100%",
           background: theme.palette.common.black,
         }}
       >

@@ -1,3 +1,13 @@
+export interface TrackerDay {
+  [date: string]: boolean | undefined;
+}
+
+export interface HabitTracker {
+  goal: string;
+  tracker: TrackerDay;
+  id: string;
+}
+
 export interface Habit {
   id: string;
   goal: string;
@@ -9,6 +19,7 @@ export interface Habit {
   };
   data: boolean[];
   startDate: string;
+  tracker: HabitTracker[];
 }
 
 export interface HabitStrength {

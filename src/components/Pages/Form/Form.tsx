@@ -58,6 +58,7 @@ const HabitForm = () => {
         },
         data: [...new Array(30)].map(() => false),
         startDate: lightFormat(new Date(), "yyyy-MM-dd"),
+        tracker: [],
       };
       dispatch(setNewHabit(newHabit));
       navigate("/");
