@@ -9,12 +9,20 @@ import habitReducer, {
   storage,
   toggleDone,
   updateHabitStrength,
+  addHabitToTracker,
+  toggleTrackerDay,
 } from "./features/habit/habitSlice";
 
 const listenerMiddleware = createListenerMiddleware();
 
 listenerMiddleware.startListening({
-  matcher: isAnyOf(setNewHabit, toggleDone, updateHabitStrength),
+  matcher: isAnyOf(
+    setNewHabit,
+    toggleDone,
+    updateHabitStrength,
+    addHabitToTracker,
+    toggleTrackerDay
+  ),
   effect: (action, listenerApi) => {
     const state = listenerApi.getState() as ReturnType<typeof store.getState>;
 
@@ -30,7 +38,6 @@ export const store = configureStore({
     getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+
 export type AppDispatch = typeof store.dispatch;

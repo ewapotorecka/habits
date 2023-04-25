@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Habit, HabitStrength } from "./habitTypes";
+import { Habit, HabitStrength, TrackerDay } from "./habitTypes";
 
 import { Storage } from "../../../utilities/storage";
 
@@ -17,6 +17,7 @@ const initialHabit: Habit = {
   },
   data: [],
   startDate: "",
+  tracker: [],
 };
 
 const savedHabit = storage.getHabitFromStorage();
@@ -31,7 +32,7 @@ export const habitSlice = createSlice({
       state.data[action.payload] = !state.data[action.payload];
     },
     setNewHabit: (state, action: PayloadAction<Habit>) => {
-      return { ...action.payload };
+      return { ...action.payload, tracker: state.tracker };
     },
     updateHabitStrength: (state, action: PayloadAction<HabitStrength>) => {
       state.habitStrength = {
@@ -42,10 +43,39 @@ export const habitSlice = createSlice({
         ],
       };
     },
+    addHabitToTracker: (state, action: PayloadAction<string>) => {
+      state.tracker = [
+        ...state.tracker,
+        { goal: action.payload, tracker: {}, id: crypto.randomUUID() },
+      ];
+    },
+    toggleTrackerDay: (
+      state,
+      action: PayloadAction<{ id: string; day: string }>
+    ) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const habitToToggle = state.tracker.find(
+        (habit) => habit.id === action.payload.id
+      );
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (habitToToggle.tracker[action.payload.day]) {
+        habitToToggle!.tracker[action.payload.day] =
+          !habitToToggle!.tracker[action.payload.day];
+      } else {
+        habitToToggle!.tracker[action.payload.day] = true;
+      }
+    },
   },
 });
 
-export const { toggleDone, setNewHabit, updateHabitStrength } =
-  habitSlice.actions;
+export const {
+  toggleDone,
+  setNewHabit,
+  updateHabitStrength,
+  addHabitToTracker,
+  toggleTrackerDay,
+} = habitSlice.actions;
 
 export default habitSlice.reducer;
